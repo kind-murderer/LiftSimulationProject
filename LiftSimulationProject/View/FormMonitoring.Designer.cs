@@ -1,6 +1,6 @@
 ﻿namespace View
 {
-    partial class Form2
+    partial class FormMonitoring
     {
         /// <summary>
         /// Required designer variable.
@@ -40,6 +40,7 @@
             this.button_Add = new System.Windows.Forms.Button();
             this.button_Stop = new System.Windows.Forms.Button();
             this.panel_AddPerson2 = new System.Windows.Forms.Panel();
+            this.lb_IncorrectInputMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel_AddPerson2.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +61,7 @@
             this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Люди в системе:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tb_PassangerDestinationFloor
             // 
@@ -151,18 +152,29 @@
             this.panel_AddPerson2.Size = new System.Drawing.Size(158, 140);
             this.panel_AddPerson2.TabIndex = 21;
             // 
-            // Form2
+            // lb_IncorrectInputMessage
+            // 
+            this.lb_IncorrectInputMessage.AutoSize = true;
+            this.lb_IncorrectInputMessage.Location = new System.Drawing.Point(325, 209);
+            this.lb_IncorrectInputMessage.Name = "lb_IncorrectInputMessage";
+            this.lb_IncorrectInputMessage.Size = new System.Drawing.Size(148, 13);
+            this.lb_IncorrectInputMessage.TabIndex = 22;
+            this.lb_IncorrectInputMessage.Text = "*место возможной ошибки*";
+            // 
+            // FormMonitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 469);
+            this.Controls.Add(this.lb_IncorrectInputMessage);
             this.Controls.Add(this.panel_AddPerson2);
             this.Controls.Add(this.button_Stop);
             this.Controls.Add(this.button_Add);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "Form2";
+            this.Name = "FormMonitoring";
             this.Text = "Мониторинг";
+            this.Closed += new System.EventHandler(this.closeFormHandler);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel_AddPerson2.ResumeLayout(false);
             this.panel_AddPerson2.PerformLayout();
@@ -189,9 +201,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-
-   
-
-        
+        private System.Windows.Forms.Label lb_IncorrectInputMessage;
     }
 }

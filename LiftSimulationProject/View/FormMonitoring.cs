@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using View;
+using LiftSimulationProject;
 
 namespace View
 {
-    public partial class Form2 : Form
+    public partial class FormMonitoring : Form//, IViewMonitoring
     {
-        public Form2()
+        public FormMonitoring()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
+
+        private void closeFormHandler(object sender, EventArgs e)
+        {
+            MyApplicationContext.GetCurrentContext().OnFormClosed(sender, e);
         }
     }
 }

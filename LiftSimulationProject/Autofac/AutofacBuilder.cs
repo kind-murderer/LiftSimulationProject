@@ -1,4 +1,9 @@
 ﻿using Autofac;
+using LiftSimulationProject.Presenters;
+using LiftSimulationProject.Services.Services;
+using LiftSimulationProject.Services.IServices;
+
+
 
 namespace LiftSimulationProject.Autofac
 {
@@ -8,7 +13,9 @@ namespace LiftSimulationProject.Autofac
         {
             var builder = new ContainerBuilder();
 
-           //Позже
+            builder.RegisterType<PresenterStartUp>().As<PresenterStartUp>();
+            builder.RegisterType<LiftInitConfigService>().As<ILiftInitConfigService>();
+            //builder.RegisterType<PersonRepositorycs>().As<IPassangerRepository>();
 
             return builder.Build();
         }

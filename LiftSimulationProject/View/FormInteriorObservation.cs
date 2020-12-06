@@ -7,19 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LiftSimulationProject;
 
 namespace View
 {
-    public partial class Form3 : Form
+    public partial class FormInteriorObservation : Form//, IViewInteriorObservation
     {
-        public Form3()
+        public FormInteriorObservation()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
+        private void closeFormHandler(object sender, EventArgs e)
+        {
+            MyApplicationContext.GetCurrentContext().OnFormClosed(sender, e);
         }
     }
 }

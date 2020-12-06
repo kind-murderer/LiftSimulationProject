@@ -96,27 +96,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalSystemConfiguration\LiftConfigData.cs" />
+    <Compile Include="AdditionalSystemConfiguration\PersonConfigData.cs" />
     <Compile Include="Autofac\AutofacBuilder.cs" />
+    <Compile Include="Entities\Entities\Entity.cs" />
+    <Compile Include="Entities\Entities\Lift.cs" />
+    <Compile Include="Entities\Entities\Person.cs" />
+    <Compile Include="Entities\IEntities\IPassanger.cs" />
+    <Compile Include="Entities\IEntities\ITransporter.cs" />
+    <Compile Include="Presenters\PresenterBase.cs" />
+    <Compile Include="Presenters\PresenterInteriorObservation.cs" />
+    <Compile Include="Presenters\PresenterMonitoring.cs" />
+    <Compile Include="Presenters\PresenterStartUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\Form1.cs">
+    <Compile Include="Repositories\IRepository\IPassangerRepository.cs" />
+    <Compile Include="Repositories\Repository\PersonRepositorycs.cs" />
+    <Compile Include="Services\IServices\IAddPassangerService.cs" />
+    <Compile Include="Services\IServices\IInteriorObservationService.cs" />
+    <Compile Include="Services\IServices\ILiftInitConfigService.cs" />
+    <Compile Include="Services\IServices\IMonitoringService.cs" />
+    <Compile Include="Services\IServices\IStartLiftSystemService.cs" />
+    <Compile Include="Services\IServices\IStopLiftSystemService.cs" />
+    <Compile Include="Services\IServices\ILiftSystemService.cs" />
+    <Compile Include="Services\Services\LiftInitConfigService.cs" />
+    <Compile Include="View\FormStartUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\FormStartUp.Designer.cs">
+      <DependentUpon>FormStartUp.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Form2.cs">
+    <Compile Include="View\FormMonitoring.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="View\FormMonitoring.Designer.cs">
+      <DependentUpon>FormMonitoring.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Form3.cs">
+    <Compile Include="View\FormInteriorObservation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Form3.Designer.cs">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <Compile Include="View\FormInteriorObservation.Designer.cs">
+      <DependentUpon>FormInteriorObservation.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\IViewInteriorObservation.cs" />
+    <Compile Include="View\IViewMonitoring.cs" />
+    <Compile Include="View\IViewStartUp.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -126,14 +150,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="View\FormStartUp.resx">
+      <DependentUpon>FormStartUp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="View\FormMonitoring.resx">
+      <DependentUpon>FormMonitoring.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Form3.resx">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <EmbeddedResource Include="View\FormInteriorObservation.resx">
+      <DependentUpon>FormInteriorObservation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

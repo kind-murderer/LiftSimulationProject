@@ -1,6 +1,7 @@
-﻿namespace View
+﻿using LiftSimulationProject;
+namespace View
 {
-    partial class Form1
+    partial class FormStartUp
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -31,10 +32,10 @@
             this.tb_LiftInitialFloor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.label8_ErrorText = new System.Windows.Forms.Label();
+            this.lb_IncorrectInputMessage = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tb_NumberOfFloors = new System.Windows.Forms.TextBox();
-            this.label2_NumberOfFloors = new System.Windows.Forms.Label();
+            this.lb_NumberOfFloors = new System.Windows.Forms.Label();
             this.button_Start = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel_AddPerson1 = new System.Windows.Forms.Panel();
@@ -73,15 +74,13 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // label8_ErrorText
+            // lb_IncorrectInputMessage
             // 
-            this.label8_ErrorText.AutoSize = true;
-            this.label8_ErrorText.Location = new System.Drawing.Point(317, 346);
-            this.label8_ErrorText.Name = "label8_ErrorText";
-            this.label8_ErrorText.Size = new System.Drawing.Size(176, 13);
-            this.label8_ErrorText.TabIndex = 12;
-            this.label8_ErrorText.Text = "***местодлявозможнойошибки***";
-            this.label8_ErrorText.Click += new System.EventHandler(this.label7_Click);
+            this.lb_IncorrectInputMessage.AutoSize = true;
+            this.lb_IncorrectInputMessage.Location = new System.Drawing.Point(317, 346);
+            this.lb_IncorrectInputMessage.Name = "lb_IncorrectInputMessage";
+            this.lb_IncorrectInputMessage.Size = new System.Drawing.Size(0, 13);
+            this.lb_IncorrectInputMessage.TabIndex = 12;
             // 
             // pictureBox1
             // 
@@ -98,14 +97,14 @@
             this.tb_NumberOfFloors.Size = new System.Drawing.Size(158, 20);
             this.tb_NumberOfFloors.TabIndex = 1;
             // 
-            // label2_NumberOfFloors
+            // lb_NumberOfFloors
             // 
-            this.label2_NumberOfFloors.AutoSize = true;
-            this.label2_NumberOfFloors.Location = new System.Drawing.Point(-3, 35);
-            this.label2_NumberOfFloors.Name = "label2_NumberOfFloors";
-            this.label2_NumberOfFloors.Size = new System.Drawing.Size(142, 13);
-            this.label2_NumberOfFloors.TabIndex = 3;
-            this.label2_NumberOfFloors.Text = "Количество этажей* (<= N)";
+            this.lb_NumberOfFloors.AutoSize = true;
+            this.lb_NumberOfFloors.Location = new System.Drawing.Point(-3, 35);
+            this.lb_NumberOfFloors.Name = "lb_NumberOfFloors";
+            this.lb_NumberOfFloors.Size = new System.Drawing.Size(146, 13);
+            this.lb_NumberOfFloors.TabIndex = 3;
+            this.lb_NumberOfFloors.Text = "Количество этажей* (<= 12)";
             // 
             // button_Start
             // 
@@ -115,6 +114,7 @@
             this.button_Start.TabIndex = 14;
             this.button_Start.Text = "СТАРТ";
             this.button_Start.UseVisualStyleBackColor = true;
+            this.button_Start.Click += new System.EventHandler(this.button_Start_Click);
             // 
             // label1
             // 
@@ -183,9 +183,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(-3, 65);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(75, 13);
+            this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 17;
-            this.label6.Text = "Направление";
+            this.label6.Text = "Целевой этаж";
             // 
             // label7
             // 
@@ -198,7 +198,7 @@
             // 
             // panel_InputLiftConfiguration
             // 
-            this.panel_InputLiftConfiguration.Controls.Add(this.label2_NumberOfFloors);
+            this.panel_InputLiftConfiguration.Controls.Add(this.lb_NumberOfFloors);
             this.panel_InputLiftConfiguration.Controls.Add(this.tb_NumberOfFloors);
             this.panel_InputLiftConfiguration.Controls.Add(this.label1);
             this.panel_InputLiftConfiguration.Controls.Add(this.tb_LiftInitialFloor);
@@ -208,7 +208,7 @@
             this.panel_InputLiftConfiguration.Size = new System.Drawing.Size(158, 114);
             this.panel_InputLiftConfiguration.TabIndex = 23;
             // 
-            // Form1
+            // FormStartUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -217,9 +217,10 @@
             this.Controls.Add(this.panel_AddPerson1);
             this.Controls.Add(this.button_Start);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label8_ErrorText);
-            this.Name = "Form1";
+            this.Controls.Add(this.lb_IncorrectInputMessage);
+            this.Name = "FormStartUp";
             this.Text = "Запуск системы";
+            this.Closed += new System.EventHandler(this.closeFormHandler);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel_AddPerson1.ResumeLayout(false);
@@ -249,13 +250,13 @@
         private System.Windows.Forms.TextBox tb_Weight;
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2_NumberOfFloors;
+        private System.Windows.Forms.Label lb_NumberOfFloors;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8_ErrorText;
+        private System.Windows.Forms.Label lb_IncorrectInputMessage;
 
     }
 }
