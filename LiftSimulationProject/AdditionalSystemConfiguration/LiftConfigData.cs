@@ -10,13 +10,13 @@ namespace AdditionalSystemConfiguration
     {
         public static readonly int maxNumberOfFloors = 12;
 
-        public int InitNumberOfFloor { get; set; }
-        public int LiftInitialFloor { get; set; }
+        public static int NumberOfFloors { get; set; }
+        public int LiftCurrentFloor { get; set; }
 
         public LiftConfigData(int initNumberOfFloor, int liftInitialFloor)
         {
-            InitNumberOfFloor = initNumberOfFloor;
-            LiftInitialFloor = liftInitialFloor;
+            NumberOfFloors = initNumberOfFloor;
+            LiftCurrentFloor = liftInitialFloor;
         }
     }
 }

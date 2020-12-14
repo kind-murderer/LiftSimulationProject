@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LiftSimulationProject.Services.IServices
 {
-    public interface ILiftInitConfigService
+    public interface IMonitoringService
     {
-        bool SetLiftInitialConfiguration();
+        event Action PassangerStatusesUpdated;
+
+        List<string> GetPassangerStatusesList();
     }
 }

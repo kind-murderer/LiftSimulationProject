@@ -242,7 +242,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "FormInteriorObservation";
             this.Text = "Наблюдение за лифтом изнутри";
-            this.Closed += new System.EventHandler(this.closeFormHandler);
+            this.Closed += new System.EventHandler(this.closeForm_Handler);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

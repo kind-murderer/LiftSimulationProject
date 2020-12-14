@@ -220,7 +220,7 @@ namespace View
             this.Controls.Add(this.lb_IncorrectInputMessage);
             this.Name = "FormStartUp";
             this.Text = "Запуск системы";
-            this.Closed += new System.EventHandler(this.closeFormHandler);
+            this.Closed += new System.EventHandler(this.closeForm_Handler);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel_AddPerson1.ResumeLayout(false);

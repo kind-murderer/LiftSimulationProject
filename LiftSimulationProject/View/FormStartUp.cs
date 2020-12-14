@@ -19,35 +19,6 @@ namespace View
     {
         public event Action StartSystem;
 
-        /*public PersonConfigData PersonData
-        {
-            get => new PersonConfigData
-            {
-                PersonInitialFloor = tb_PassangerInitialFloor.Text,
-                PersonDestinationFloor = tb_PassangerDestinationFloor.Text,
-                PersonWeight = tb_Weight.Text
-            };
-            set {
-                tb_PassangerInitialFloor.Text = value.PersonInitialFloor;
-                tb_PassangerDestinationFloor.Text = value.PersonDestinationFloor;
-                tb_Weight.Text = value.PersonWeight;
-            }            
-        }
-
-        public LiftConfigData LiftData
-        {
-            get => new LiftConfigData
-            {
-                InitNumberOfFloor = tb_NumberOfFloors.Text,
-                LiftInitialFloor = tb_LiftInitialFloor.Text
-            };
-            set
-            {
-                tb_NumberOfFloors.Text = value.InitNumberOfFloor;
-                tb_LiftInitialFloor.Text = value.LiftInitialFloor;
-            }
-        }*/
-        //InitNumberOfFloor => tb_NumberOfFloors.Text;
         public string InitNumberOfFloor => tb_NumberOfFloors.Text;
         public string LiftInitialFloor => tb_LiftInitialFloor.Text;
 
@@ -65,12 +36,12 @@ namespace View
             InitializeComponent();
 
             var container = AutofacBuilder.Build();
+            ContainerProvider.Container = container;
             using (var scope = container.BeginLifetimeScope())
             {
                 presenterFactory = scope.Resolve<PresenterStartUp.Factory>();
                 presenter = presenterFactory(this);
             }
-
             
         }
 
@@ -108,7 +79,7 @@ namespace View
             StartSystem?.Invoke();
         }
 
-        private void closeFormHandler(object sender, EventArgs e)
+        private void closeForm_Handler(object sender, EventArgs e)
         {
             MyApplicationContext.GetCurrentContext().OnFormClosed(sender, e);
         }

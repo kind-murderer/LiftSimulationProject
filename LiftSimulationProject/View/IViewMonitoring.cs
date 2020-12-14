@@ -11,9 +11,12 @@ namespace View
     {
         void providePersonData(out string PersonInitialFloor, out string PersonDestinationFloor, out string PersonWeight);
 
-        event Action StopSystem;
-        event Action CreatePassanger;
+        void showIncorrectInputMessage(string message);
+        void showCriticalErrorMessage(string message);
 
-        void ShowPassangerCurrentStatus();
+        event Action StopSystem;
+        event Action AddPassanger;
+
+        void ShowCurrentPassangerStatuses(List<string> statuses);
     }
 }

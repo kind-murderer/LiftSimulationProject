@@ -14,159 +14,119 @@ namespace LiftSimulationProject.Presenters
 {
     public class PresenterStartUp : PresenterBase<IViewStartUp>
     {
-        /*private IStartLiftSystemService startLiftSystemService;
-        private IAddPassangerService addPassangerService; */
-        private ILiftInitConfigService liftInitConfigService;
+        IManageSystemService manageSystemService = SystemManageServerAccessHelper.GetManageSystemService();
        
-
-        public PresenterStartUp(IViewStartUp view, /*IStartLiftSystemService startLiftSystemService,
-            IAddPassangerService addPassangerService,*/ ILiftInitConfigService liftInitConfigService) : base(view)
+        public PresenterStartUp(IViewStartUp view) : base(view)
         {
-            /* this.startLiftSystemService = startLiftSystemService;
-             this.addPassangerService = addPassangerService;*/
-
-            this.liftInitConfigService = liftInitConfigService;
-
             view.StartSystem += StartSystemHandler;
         }
 
         public delegate PresenterStartUp Factory(IViewStartUp view);
 
-        private bool checkLiftData(out int numberOfFloors)
+        private void StartSystemHandler()
+        {
+
+            //string CRITICALTESTWORD = "12";
+
+            //int numberOfFloors = 0;
+            if (checkTransporterData(out int numberOfFloors) && checkPassangerData(numberOfFloors))
+            {
+                LiftConfigData transporterData = convertTransporterData();
+                PersonConfigData passangerData = convertPassangerData();
+                if (manageSystemService.TryStartSystem(transporterData, passangerData))
+                {
+                    view.showIncorrectInputMessage("");
+
+                    MyApplicationContext.createMonitoringForm().Show();
+                    MyApplicationContext.createInteriorObservationForm().Show();
+
+                    view.Close();
+                }
+                else
+                {
+                    view.showIncorrectInputMessage("");
+                    view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
+                }
+
+            }
+        }
+        private bool checkTransporterData(out int numberOfFloors)
         {
             numberOfFloors = 0;
-            int liftInitialFloor = 0;
+            int transporterInitialFloor = 0;
 
-            string CRITICALTESTWORD = "12";
+            //string CRITICALTESTWORD = "12";
 
-            view.provideLiftData(out string InitNumberOfFloor, out string LiftInitialFloor);
+            view.provideLiftData(out string NumberOfFloor, out string TransporterInitialFloor);
 
-            if (string.IsNullOrEmpty(InitNumberOfFloor) || !int.TryParse(InitNumberOfFloor, out numberOfFloors)
-                || string.IsNullOrEmpty(LiftInitialFloor) || !int.TryParse(LiftInitialFloor, out liftInitialFloor))
+            if (string.IsNullOrEmpty(NumberOfFloor) || !int.TryParse(NumberOfFloor, out numberOfFloors)
+                || string.IsNullOrEmpty(TransporterInitialFloor) || !int.TryParse(TransporterInitialFloor, out transporterInitialFloor))
             {
                 view.showIncorrectInputMessage("Некорректно введены данные");
             }
             else if (!(
               (numberOfFloors > 1 && numberOfFloors <= LiftConfigData.maxNumberOfFloors)
-          && (liftInitialFloor > 0 && liftInitialFloor <= numberOfFloors)))
+          && (transporterInitialFloor > 0 && transporterInitialFloor <= numberOfFloors)))
             {
                 view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
             }
-            else if (InitNumberOfFloor.Equals(CRITICALTESTWORD))
+            /*else if (NumberOfFloor.Equals(CRITICALTESTWORD))
             {
                 view.showIncorrectInputMessage("");
                 view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
-            }
-            else if (liftInitConfigService.SetLiftInitialConfiguration())
+            }*/
+            else
             {
                 return true;
             }
 
             return false;
         }
-        private bool checkPersonData(int numberOfFloors)
+        private bool checkPassangerData(int numberOfFloors)
         {
-            int personInitialFloor = 0;
-            int personDestinationFloor = 0;
-            int personWeight = 0;
+            int passangerInitialFloor = 0;
+            int passangerDestinationFloor = 0;
+            int passangerWeight = 0;
 
-            view.providePersonData(out string PersonInitialFloor, out string PersonDestinationFloor, out string PersonWeight);
+            view.providePersonData(out string PassangerInitialFloor, out string PassangerDestinationFloor, out string PassangerWeight);
 
-            if (string.IsNullOrEmpty(PersonDestinationFloor) || !int.TryParse(PersonDestinationFloor, out personDestinationFloor)
-                || string.IsNullOrEmpty(PersonInitialFloor) || !int.TryParse(PersonInitialFloor, out personInitialFloor)
-                || string.IsNullOrEmpty(PersonWeight) || !int.TryParse(PersonWeight, out personWeight))
+            if (string.IsNullOrEmpty(PassangerDestinationFloor) || !int.TryParse(PassangerDestinationFloor, out passangerDestinationFloor)
+                || string.IsNullOrEmpty(PassangerInitialFloor) || !int.TryParse(PassangerInitialFloor, out passangerInitialFloor)
+                || string.IsNullOrEmpty(PassangerWeight) || !int.TryParse(PassangerWeight, out passangerWeight))
             {
                 view.showIncorrectInputMessage("Некорректно введены данные");
             }
             else if (!(
-                (personInitialFloor > 0 && personInitialFloor <= numberOfFloors && personInitialFloor != personDestinationFloor)
-          && (personDestinationFloor > 0 && personDestinationFloor <= numberOfFloors)
-          && (personWeight > 0 && personWeight <= PersonConfigData.maxWeightToCarry)))
+                (passangerInitialFloor > 0 && passangerInitialFloor <= numberOfFloors && passangerInitialFloor != passangerDestinationFloor)
+          && (passangerDestinationFloor > 0 && passangerDestinationFloor <= numberOfFloors)
+          && (passangerWeight > 0 && passangerWeight <= PersonConfigData.maxWeightToCarry)))
             {
                 view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
             }
-            else if (liftInitConfigService.SetLiftInitialConfiguration())
+            else 
             {
-
                 return true;
             }
             return false;
         }
 
-        private LiftConfigData convertLiftData()
+        private LiftConfigData convertTransporterData()
         {
-            view.provideLiftData(out string InitNumberOfFloor, out string LiftInitialFloor);
-            int.TryParse(InitNumberOfFloor, out int initNumberOfFloor);
-            int.TryParse(LiftInitialFloor, out int liftInitialFloor);
-
-            return new LiftConfigData(initNumberOfFloor, liftInitialFloor);
+            view.provideLiftData(out string NumberOfFloor, out string TransporterInitialFloor);
+            int.TryParse(NumberOfFloor, out int numberOfFloor);
+            int.TryParse(TransporterInitialFloor, out int transporterInitialFloor);
+            return new LiftConfigData(numberOfFloor, transporterInitialFloor);
         }
 
-        private PersonConfigData convertPersonData()
+        private PersonConfigData convertPassangerData()
         {
-            view.providePersonData(out string PersonInitialFloor, out string PersonDestinationFloor, out string PersonWeight);
-            int.TryParse(PersonInitialFloor, out int personInitialFloor);
-            int.TryParse(PersonDestinationFloor, out int personDestinationFloor);
-            int.TryParse(PersonWeight, out int personWeight);
+            view.providePersonData(out string PassangerInitialFloor, out string PassangerDestinationFloor, out string PassangerWeight);
+            int.TryParse(PassangerInitialFloor, out int passangerInitialFloor);
+            int.TryParse(PassangerDestinationFloor, out int passangerDestinationFloor);
+            int.TryParse(PassangerWeight, out int passangerWeight);
 
-            return new PersonConfigData(personInitialFloor, personDestinationFloor, personWeight);
+            return new PersonConfigData(passangerInitialFloor, passangerDestinationFloor, passangerWeight);
         }
-        private void StartSystemHandler()
-        {
-            //int numberOfFloors = 0;
-            /*int liftInitialFloor = 0;
-            int personInitialFloor = 0;
-            int personDestinationFloor = 0;
-            int personWeight = 0;
-
-            string CRITICALTESTWORD = "12";*/
-
-
-            /*view.providePersonData(out string PersonInitialFloor, out string PersonDestinationFloor, out string PersonWeight);
-            view.provideLiftData(out string InitNumberOfFloor, out string LiftInitialFloor);*/
-
-            /*if (string.IsNullOrEmpty(InitNumberOfFloor) || !int.TryParse(InitNumberOfFloor, out numberOfFloors)
-                || string.IsNullOrEmpty(LiftInitialFloor) || !int.TryParse(LiftInitialFloor, out liftInitialFloor)
-                || string.IsNullOrEmpty(PersonDestinationFloor) || !int.TryParse(PersonDestinationFloor, out personDestinationFloor)
-                || string.IsNullOrEmpty(PersonInitialFloor) || !int.TryParse(PersonInitialFloor, out personInitialFloor)
-                || string.IsNullOrEmpty(PersonWeight) || !int.TryParse(PersonWeight, out personWeight))
-            {
-                view.showIncorrectInputMessage("Некорректно введены данные");
-            } else if (!(
-                (numberOfFloors > 1 && numberOfFloors <= LiftConfigData.maxNumberOfFloors)
-            && (liftInitialFloor > 0 && liftInitialFloor <= numberOfFloors)
-            && (personInitialFloor > 0 && personInitialFloor <= numberOfFloors && personInitialFloor!= personDestinationFloor)
-            && (personDestinationFloor > 0 && personDestinationFloor <= numberOfFloors)
-            && (personWeight > 0 && personWeight <= PersonConfigData.maxWeightToCarry)))
-            {
-                view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
-            } else if (InitNumberOfFloor.Equals(CRITICALTESTWORD))
-            {
-                view.showIncorrectInputMessage("");
-                view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
-            } else if (liftInitConfigService.SetLiftInitialConfiguration())
-            {
-                view.showIncorrectInputMessage("");
-
-                MyApplicationContext.createMonitoringForm().Show();
-                MyApplicationContext.createInteriorObservationForm().Show();
-                
-                view.Close();
-            }*/
-
-            int numberOfFloors = 0;
-            if (checkLiftData(out numberOfFloors) && checkPersonData(numberOfFloors) && liftInitConfigService.SetLiftInitialConfiguration())
-            {
-                LiftConfigData liftData = convertLiftData();
-                PersonConfigData personData = convertPersonData();
-
-                view.showIncorrectInputMessage("");
-
-                MyApplicationContext.createMonitoringForm().Show();
-                MyApplicationContext.createInteriorObservationForm().Show();
-
-                view.Close();
-            }
-        }
+        
     }
 }

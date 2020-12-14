@@ -19,7 +19,7 @@ namespace View
         }
 
 
-        private void closeFormHandler(object sender, EventArgs e)
+        private void closeForm_Handler(object sender, EventArgs e)
         {
             MyApplicationContext.GetCurrentContext().OnFormClosed(sender, e);
         }

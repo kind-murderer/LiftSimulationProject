@@ -2,6 +2,11 @@
 using LiftSimulationProject.Presenters;
 using LiftSimulationProject.Services.Services;
 using LiftSimulationProject.Services.IServices;
+using LiftSimulationProject.Repositories.Repository;
+using LiftSimulationProject.Repositories.IRepository;
+using LiftSimulationProject.Entities.Entities;
+using LiftSimulationProject.Entities.IEntities;
+
 
 
 
@@ -14,8 +19,14 @@ namespace LiftSimulationProject.Autofac
             var builder = new ContainerBuilder();
 
             builder.RegisterType<PresenterStartUp>().As<PresenterStartUp>();
-            builder.RegisterType<LiftInitConfigService>().As<ILiftInitConfigService>();
-            //builder.RegisterType<PersonRepositorycs>().As<IPassangerRepository>();
+            builder.RegisterType<PresenterMonitoring>().As<PresenterMonitoring>();
+
+            builder.RegisterType<MonitoringService>().As<IMonitoringService>();
+            builder.RegisterType<ManageSystemService>().As<IManageSystemService>();
+
+            builder.RegisterType<PersonRepository>().As<IPassangerRepository>();
+            builder.RegisterType<Person>().As<IPassanger>();
+            builder.RegisterType<Lift>().As<ITransporter>();
 
             return builder.Build();
         }
