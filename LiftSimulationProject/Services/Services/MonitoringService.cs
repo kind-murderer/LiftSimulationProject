@@ -29,22 +29,34 @@ namespace LiftSimulationProject.Services.Services
         {
             List<string> statuses = new List<string>();
 
-            //always lock transporter AFTER passangers because of deadlocks
-            lock (manageSystemService.GetPassangerRepository().passangers)
+            //always lock transporter BEFORE passangers because of deadlocks
+            lock (manageSystemService.GetTransporter())
             {
-                lock (manageSystemService.GetTransporter())
+                lock (manageSystemService.GetPassangerRepository().passangers)
                 {
                     List<IPassanger> passangers = manageSystemService.GetPassangerRepository().passangers;
+                    /*if (passangers.Any())
+                    {
+                        foreach (IPassanger x in passangers)
+                        {
+                            if (!x.IsInTransporter)
+                            {
+                                Console.WriteLine("isn't in transporter");
+                            }
+                            Console.WriteLine(x.personData.PersonCurrentFloor + " " +  x.personData.PersonDestinationFloor );
+                        }
+                    }*/
+                    
                     foreach (IPassanger passanger in passangers)
                     {
                         //we don't need passanger that just was created and didn't call for this moment
                         if (!(!passanger.IsInTransporter
                             && passanger.personData.PersonCurrentFloor != passanger.personData.PersonDestinationFloor
-                            && !passanger.IsCallButtonPressed))
+                            && !passanger.IsCallingTransporter))
                         {
                             if (!passanger.IsInTransporter
                             && passanger.personData.PersonCurrentFloor != passanger.personData.PersonDestinationFloor
-                            && passanger.IsCallButtonPressed)
+                            && passanger.IsCallingTransporter)
                             {
                                 statuses.Add(String.Format($"Человек ожидает лифт на этаже {passanger.personData.PersonCurrentFloor}"));
                             }
@@ -69,7 +81,8 @@ namespace LiftSimulationProject.Services.Services
                 }
                 
             }
-            return statuses;//can be null
+            
+            return statuses;//can be empty
         }
     }
 }

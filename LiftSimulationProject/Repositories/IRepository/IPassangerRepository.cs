@@ -14,18 +14,15 @@ namespace LiftSimulationProject.Repositories.IRepository
         List<IPassanger> passangers { get; set; } //access should be synchronized
 
         event Action passangersUpdated;
-
-        //another class that has reference to passangers and different methods with it..
-        //..should know the state of the passangers lock  
-        /*object PassPassangersLockObject();*/
+        event Action passangerCalls;
 
         void OnPassangersUpdated();
+        void OnPassangerCalls();
         bool AddPassanger(PersonConfigData passangerData);
 
-        //only passangers use it; should be synchronized method
+        //only passangers use it
         void DeletePassanger(IPassanger passanger); 
-        void UpdatePassangerData(IPassanger passanger, PersonConfigData personData);
+        
 
-        //List<IPassanger> GetPassangers();
     }
 }

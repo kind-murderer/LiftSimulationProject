@@ -14,76 +14,84 @@ namespace LiftSimulationProject.Entities.Entities
     {
         public IPassangerRepository repository { get; set; }
         public bool IsInTransporter { get; set; }
-        public bool IsCallButtonPressed { get; set; }
+        public bool IsCallingTransporter { get; set; }
         public PersonConfigData personData { get; set; }
+
+        private object runningLifeBlock = new object();
 
         public Person(IPassangerRepository repository_, PersonConfigData passangerData_)
         {
             IsInTransporter = false;
-            IsCallButtonPressed = false;
+            IsCallingTransporter = false;
             
             repository = repository_;
             personData = passangerData_;
 
             Thread newThread = new Thread(new ThreadStart(RunPassangerLife));
+            newThread.IsBackground = true;
             newThread.Start();
         }
 
 
-        //there may be not enough space
-        public bool TryGetInTransporter()
+        public bool ShouldGetInTransporter(LiftConfigData liftData)
         {
-            if (IsCallButtonPressed)
+            lock (repository.passangers)
             {
-                return true;
+                if (IsCallingTransporter && personData.PersonCurrentFloor == liftData.LiftCurrentFloor)
+                {
+                    //isintransporter changes later by transporter
+                    return true;
+                }
+                return false;
             }
-            return false;
-        }
-        //if we fit in
-        public void BeInTransporter()
-        {
-            IsInTransporter = true;
-        }
-        
-        public bool GetOutOfTransporter()
-        {
-            if (personData.PersonCurrentFloor == personData.PersonDestinationFloor)
-            {
-                IsInTransporter = false;
-                return true;
-            }
-            return true;
             
         }
 
-        private void RunPassangerLife()
+        public bool ShouldGetOutOfTransporter()
         {
-            
-            Thread.Sleep(3000);
             lock (repository.passangers)
             {
-                IsCallButtonPressed = true;
+                if (personData.PersonCurrentFloor == personData.PersonDestinationFloor)
+                {
+                    //isintransporter changes later by transporter
+                    return true;
+                }
+                return false;
+            }
+            
+        }
+        private void CallTransporter()
+        {
+            Console.WriteLine("Try to call");
+            lock (repository.passangers)
+            {
+                IsCallingTransporter = true;
             }
             repository.OnPassangersUpdated(); //raise event
-            Thread.Sleep(3000);
+            repository.OnPassangerCalls();
+        }
+        private void RunPassangerLife()
+        {
+            Thread.Sleep(5000);
+            CallTransporter();
+            lock (runningLifeBlock)
+            {
+                Monitor.Wait(runningLifeBlock);
+            }
+            
+            Thread.Sleep(5000);
             
             repository.DeletePassanger(this); //also raises event
 
+        }
 
-            //sleep 3 sek
-            //change CallButton + repos.event
-
-            //wait(betterfutureLock)
-
-            //*dreaming about how transport will come for us*
-            //*wait in transport*
-
-            // wake up when arrive (we pass wait(betterfutureLock))
-
-            //sleep 5 sek
-            //repos.delete 
-            //end
-
+        public void ContinueLive()
+        {
+            
+            lock (runningLifeBlock)
+            {
+                Monitor.Pulse(runningLifeBlock);
+            }
         }
     }
 }

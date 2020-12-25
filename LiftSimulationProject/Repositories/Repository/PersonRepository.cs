@@ -19,6 +19,7 @@ namespace LiftSimulationProject.Repositories.Repository
         public List<IPassanger> passangers { get; set; }
 
         public event Action passangersUpdated;
+        public event Action passangerCalls;
 
         public PersonRepository()
         {
@@ -53,6 +54,11 @@ namespace LiftSimulationProject.Repositories.Repository
         public void OnPassangersUpdated()
         {
             passangersUpdated?.Invoke();
+        }
+
+        public void OnPassangerCalls()
+        {
+            passangerCalls?.Invoke();
         }
     }
 }

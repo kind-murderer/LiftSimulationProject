@@ -26,9 +26,6 @@ namespace LiftSimulationProject.Presenters
         private void StartSystemHandler()
         {
 
-            //string CRITICALTESTWORD = "12";
-
-            //int numberOfFloors = 0;
             if (checkTransporterData(out int numberOfFloors) && checkPassangerData(numberOfFloors))
             {
                 LiftConfigData transporterData = convertTransporterData();
@@ -70,11 +67,6 @@ namespace LiftSimulationProject.Presenters
             {
                 view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
             }
-            /*else if (NumberOfFloor.Equals(CRITICALTESTWORD))
-            {
-                view.showIncorrectInputMessage("");
-                view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
-            }*/
             else
             {
                 return true;
@@ -99,7 +91,7 @@ namespace LiftSimulationProject.Presenters
             else if (!(
                 (passangerInitialFloor > 0 && passangerInitialFloor <= numberOfFloors && passangerInitialFloor != passangerDestinationFloor)
           && (passangerDestinationFloor > 0 && passangerDestinationFloor <= numberOfFloors)
-          && (passangerWeight > 0 && passangerWeight <= PersonConfigData.maxWeightToCarry)))
+          && (passangerWeight > 0 && passangerWeight <= LiftConfigData.maxWeightToCarry)))
             {
                 view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
             }

@@ -132,7 +132,7 @@
     <Compile Include="Services\IServices\IManageSystemService.cs" />
     <Compile Include="Services\Services\MonitoringService.cs" />
     <Compile Include="Services\Services\ManageSystemService.cs" />
-    <Compile Include="Services\IServices\SystemRunningServerAccessHelper.cs" />
+    <Compile Include="Services\IServices\SystemManageServerAccessHelper.cs" />
     <Compile Include="View\FormStartUp.cs">
       <SubType>Form</SubType>
     </Compile>

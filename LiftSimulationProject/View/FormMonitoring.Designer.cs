@@ -52,7 +52,7 @@ namespace View
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 29);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(307, 428);
+            this.dataGridView1.Size = new System.Drawing.Size(421, 428);
             this.dataGridView1.TabIndex = 0;
             // 
             // label1
@@ -123,7 +123,7 @@ namespace View
             // 
             // button_Add
             // 
-            this.button_Add.Location = new System.Drawing.Point(408, 175);
+            this.button_Add.Location = new System.Drawing.Point(525, 175);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(75, 23);
             this.button_Add.TabIndex = 19;
@@ -133,7 +133,7 @@ namespace View
             // 
             // button_Stop
             // 
-            this.button_Stop.Location = new System.Drawing.Point(343, 387);
+            this.button_Stop.Location = new System.Drawing.Point(460, 387);
             this.button_Stop.Name = "button_Stop";
             this.button_Stop.Size = new System.Drawing.Size(139, 70);
             this.button_Stop.TabIndex = 20;
@@ -150,7 +150,7 @@ namespace View
             this.panel_AddPerson2.Controls.Add(this.label3);
             this.panel_AddPerson2.Controls.Add(this.label4);
             this.panel_AddPerson2.Controls.Add(this.label5);
-            this.panel_AddPerson2.Location = new System.Drawing.Point(325, 29);
+            this.panel_AddPerson2.Location = new System.Drawing.Point(442, 29);
             this.panel_AddPerson2.Name = "panel_AddPerson2";
             this.panel_AddPerson2.Size = new System.Drawing.Size(158, 140);
             this.panel_AddPerson2.TabIndex = 21;
@@ -167,7 +167,7 @@ namespace View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 469);
+            this.ClientSize = new System.Drawing.Size(623, 469);
             this.Controls.Add(this.lb_IncorrectInputMessage);
             this.Controls.Add(this.panel_AddPerson2);
             this.Controls.Add(this.button_Stop);

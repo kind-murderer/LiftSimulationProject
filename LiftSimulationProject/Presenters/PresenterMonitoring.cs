@@ -26,7 +26,6 @@ namespace LiftSimulationProject.Presenters
         public delegate PresenterMonitoring Factory(IViewMonitoring view);
         private void AddPassangerHandler()
         {
-            Console.WriteLine("in add passanger handler");
             if (checkPassangerData(LiftConfigData.NumberOfFloors))
             {
                 PersonConfigData passangerData = convertPassangerData();
@@ -50,7 +49,7 @@ namespace LiftSimulationProject.Presenters
             }
             else
             {
-                view.showCriticalErrorMessage("Вы не можете закрыть приложения, пока есть люди в системе.");
+                view.showCriticalErrorMessage("Вы не можете остановить систему, пока есть люди в лифте.");
             }
         }
 
@@ -77,7 +76,7 @@ namespace LiftSimulationProject.Presenters
             else if (!(
                 (passangerInitialFloor > 0 && passangerInitialFloor <= numberOfFloors && passangerInitialFloor != passangerDestinationFloor)
           && (passangerDestinationFloor > 0 && passangerDestinationFloor <= numberOfFloors)
-          && (passangerWeight > 0 && passangerWeight <= PersonConfigData.maxWeightToCarry)))
+          && (passangerWeight > 0 && passangerWeight <= LiftConfigData.maxWeightToCarry)))
             {
                 view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
             }

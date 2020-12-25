@@ -14,8 +14,9 @@ namespace LiftSimulationProject.Entities.IEntities
 
         LiftConfigData liftData { get;}
 
-        void Load(List<IPassanger> passangers);
-        void Offload(List<IPassanger> passangers);
-        void Move(List<IPassanger> passangers);
+        bool ChooseDeriction(List<IPassanger> passangers, List<IPassanger> passangersInTransporter);
+        void Load(List<IPassanger> passangersToGetIn);
+        void Offload(List<IPassanger> passangersToGetOut);
+        void Move(List<IPassanger> passangersInTransporter);
     }
 }
