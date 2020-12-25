@@ -14,8 +14,13 @@ namespace LiftSimulationProject.Entities.Entities
         public string Direction { get; set; }
         public bool IsPaused { get; set; }
 
+        public bool WasOverloaded { get; set; }
+
         public LiftConfigData liftData { get; }
-        private int weight;
+        private int weight = 0;
+
+        public event Action InteriorUpdated;
+
         public Lift(LiftConfigData liftData_)
         {
             liftData = liftData_;
@@ -39,7 +44,9 @@ namespace LiftSimulationProject.Entities.Entities
                             passanger.IsInTransporter = true;
                             weight += passanger.personData.PersonWeight;
                             passanger.IsCallingTransporter = false;
+                            WasOverloaded = false;
                         }
+                        else { WasOverloaded = true; }
                     }
                 }
             }
@@ -54,7 +61,7 @@ namespace LiftSimulationProject.Entities.Entities
                     {
                         passanger.IsInTransporter = false;
                         weight -= passanger.personData.PersonWeight;
-                        passanger.ContinueLive();
+                        //passanger.ContinueLive();
                     }
                 }
             }
@@ -63,7 +70,9 @@ namespace LiftSimulationProject.Entities.Entities
         }
         public void Move(List<IPassanger> passangersInTransporter)
         {
-            //passangers might be null
+            //on the new floor clean overload flag
+            WasOverloaded = false;
+
             if (Direction.Equals("Up"))
             {
                 liftData.LiftCurrentFloor++;
@@ -156,6 +165,11 @@ namespace LiftSimulationProject.Entities.Entities
                
             }
             return true;
+        }
+
+        public void OnInteriorUpdated()
+        {
+            InteriorUpdated?.Invoke();
         }
     }
 }

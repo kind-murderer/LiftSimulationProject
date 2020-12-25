@@ -19,6 +19,7 @@ namespace LiftSimulationProject.Presenters
 
             view.StopSystem += StopSystemHandler;
             view.AddPassanger += AddPassangerHandler;
+            
 
             monitoringService.PassangerStatusesUpdated += PassangerStatusesUpdatedHandler;
         }
@@ -59,6 +60,7 @@ namespace LiftSimulationProject.Presenters
             view.ShowCurrentPassangerStatuses(statuses);
         }
 
+        
         private bool checkPassangerData(int numberOfFloors)
         {
             int passangerInitialFloor = 0;
@@ -82,6 +84,7 @@ namespace LiftSimulationProject.Presenters
             }
             else
             {
+                view.showIncorrectInputMessage("");
                 return true;
             }
             return false;

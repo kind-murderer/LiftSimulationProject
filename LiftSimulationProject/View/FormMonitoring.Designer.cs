@@ -158,7 +158,7 @@ namespace View
             // lb_IncorrectInputMessage
             // 
             this.lb_IncorrectInputMessage.AutoSize = true;
-            this.lb_IncorrectInputMessage.Location = new System.Drawing.Point(325, 209);
+            this.lb_IncorrectInputMessage.Location = new System.Drawing.Point(439, 225);
             this.lb_IncorrectInputMessage.Name = "lb_IncorrectInputMessage";
             this.lb_IncorrectInputMessage.Size = new System.Drawing.Size(0, 13);
             this.lb_IncorrectInputMessage.TabIndex = 22;

@@ -35,7 +35,7 @@ namespace LiftSimulationProject.Presenters
                     view.showIncorrectInputMessage("");
 
                     MyApplicationContext.createMonitoringForm().Show();
-                    MyApplicationContext.createInteriorObservationForm().Show();
+                    MyApplicationContext.createInteriorObservationForm(numberOfFloors).Show();
 
                     view.Close();
                 }
@@ -52,8 +52,6 @@ namespace LiftSimulationProject.Presenters
             numberOfFloors = 0;
             int transporterInitialFloor = 0;
 
-            //string CRITICALTESTWORD = "12";
-
             view.provideLiftData(out string NumberOfFloor, out string TransporterInitialFloor);
 
             if (string.IsNullOrEmpty(NumberOfFloor) || !int.TryParse(NumberOfFloor, out numberOfFloors)
@@ -69,6 +67,7 @@ namespace LiftSimulationProject.Presenters
             }
             else
             {
+                view.showIncorrectInputMessage("");
                 return true;
             }
 
@@ -97,6 +96,7 @@ namespace LiftSimulationProject.Presenters
             }
             else 
             {
+                view.showIncorrectInputMessage("");
                 return true;
             }
             return false;

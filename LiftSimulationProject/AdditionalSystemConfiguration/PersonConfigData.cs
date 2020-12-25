@@ -8,8 +8,7 @@ namespace AdditionalSystemConfiguration
 {
     public class PersonConfigData
     {
-        //public static readonly int maxWeightToCarry = 400;
-
+        
         public int PersonCurrentFloor { get; set;  }
         public int PersonDestinationFloor { get; set; }
         public int PersonWeight { get; set; }

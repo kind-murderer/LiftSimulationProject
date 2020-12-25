@@ -11,8 +11,8 @@ namespace LiftSimulationProject.Services.IServices
 {
     public interface IManageSystemService
     {
-   
 
+        event Action transporterAwake;
         bool TryAddPerson(PersonConfigData passangerData);
         bool TryStartSystem(LiftConfigData transporterData, PersonConfigData passangerData);
         bool TryStopSystem();

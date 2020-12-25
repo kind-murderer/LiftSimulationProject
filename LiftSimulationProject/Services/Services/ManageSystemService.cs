@@ -18,7 +18,7 @@ namespace LiftSimulationProject.Services.Services
     {
         // 1 for the whole programm
 
-
+        public event Action transporterAwake;
         private IPassangerRepository repository;
 
         private ITransporter transporter;
@@ -49,6 +49,7 @@ namespace LiftSimulationProject.Services.Services
             //
             //looking for guys to get in
             //
+            transporter.OnInteriorUpdated();
             while (keepRunning)
             {
                 //choosing direction
@@ -71,7 +72,7 @@ namespace LiftSimulationProject.Services.Services
                     transporter.Move(passangersInTransporter);
                     Console.WriteLine("Moved");
                 }
-                
+
                 Thread.Sleep(2000);
 
                 lock (transporter)
@@ -82,24 +83,26 @@ namespace LiftSimulationProject.Services.Services
                                 passanger => passanger.ShouldGetOutOfTransporter());
                     }
                     transporter.Offload(passangersToGetOut);
-
-                    //invoke update event
-                    repository.OnPassangersUpdated();
-
+                }
+                //invoke update event
+                repository.OnPassangersUpdated();
+                lock (transporter)
+                {
                     lock (repository.passangers)
                     {
                         passangersToGetIn = repository.passangers.FindAll(
                             passanger => passanger.ShouldGetInTransporter(transporter.liftData));
                     }
                     transporter.Load(passangersToGetIn);
-
-                    lock (repository.passangers)
-                    {
-                        passangersInTransporter = repository.passangers.FindAll(
-                            passanger => passanger.IsInTransporter);
-                    }
-
                 }
+                transporter.OnInteriorUpdated();
+
+                lock (repository.passangers)
+                {
+                    passangersInTransporter = repository.passangers.FindAll(
+                        passanger => passanger.IsInTransporter);
+                }
+
             }
 
         }
@@ -139,6 +142,7 @@ namespace LiftSimulationProject.Services.Services
             lock (runningSystemLock)
             {
                 Monitor.Pulse(runningSystemLock);
+                transporterAwake?.Invoke();
             }
         }
 

@@ -130,6 +130,7 @@
     <Compile Include="Services\IServices\IInteriorObservationService.cs" />
     <Compile Include="Services\IServices\IMonitoringService.cs" />
     <Compile Include="Services\IServices\IManageSystemService.cs" />
+    <Compile Include="Services\Services\InteriorObservationService.cs" />
     <Compile Include="Services\Services\MonitoringService.cs" />
     <Compile Include="Services\Services\ManageSystemService.cs" />
     <Compile Include="Services\IServices\SystemManageServerAccessHelper.cs" />

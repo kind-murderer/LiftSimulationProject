@@ -21,6 +21,6 @@ namespace LiftSimulationProject.Entities.IEntities
         //properties of the passangers changes in the interval between GetInTransporter and GetOutOfTransporter 
         bool ShouldGetInTransporter(LiftConfigData liftData);
         bool ShouldGetOutOfTransporter();
-        void ContinueLive();
+        //void ContinueLive();
     }
 }

@@ -20,9 +20,11 @@ namespace LiftSimulationProject.Autofac
 
             builder.RegisterType<PresenterStartUp>().As<PresenterStartUp>();
             builder.RegisterType<PresenterMonitoring>().As<PresenterMonitoring>();
+            builder.RegisterType<PresenterInteriorObservation>().As<PresenterInteriorObservation>();
 
             builder.RegisterType<MonitoringService>().As<IMonitoringService>();
             builder.RegisterType<ManageSystemService>().As<IManageSystemService>();
+            builder.RegisterType<InteriorObservationService>().As<IInteriorObservationService>();
 
             builder.RegisterType<PersonRepository>().As<IPassangerRepository>();
             builder.RegisterType<Person>().As<IPassanger>();

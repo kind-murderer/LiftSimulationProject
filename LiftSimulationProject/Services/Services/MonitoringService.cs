@@ -35,18 +35,7 @@ namespace LiftSimulationProject.Services.Services
                 lock (manageSystemService.GetPassangerRepository().passangers)
                 {
                     List<IPassanger> passangers = manageSystemService.GetPassangerRepository().passangers;
-                    /*if (passangers.Any())
-                    {
-                        foreach (IPassanger x in passangers)
-                        {
-                            if (!x.IsInTransporter)
-                            {
-                                Console.WriteLine("isn't in transporter");
-                            }
-                            Console.WriteLine(x.personData.PersonCurrentFloor + " " +  x.personData.PersonDestinationFloor );
-                        }
-                    }*/
-                    
+                   
                     foreach (IPassanger passanger in passangers)
                     {
                         //we don't need passanger that just was created and didn't call for this moment

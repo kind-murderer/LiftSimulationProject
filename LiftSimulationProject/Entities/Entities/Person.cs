@@ -51,9 +51,13 @@ namespace LiftSimulationProject.Entities.Entities
         {
             lock (repository.passangers)
             {
-                if (personData.PersonCurrentFloor == personData.PersonDestinationFloor)
+                if (personData.PersonCurrentFloor == personData.PersonDestinationFloor && IsInTransporter)
                 {
                     //isintransporter changes later by transporter
+                    lock (runningLifeBlock)
+                    {
+                        Monitor.Pulse(runningLifeBlock);
+                    }
                     return true;
                 }
                 return false;
@@ -85,13 +89,13 @@ namespace LiftSimulationProject.Entities.Entities
 
         }
 
-        public void ContinueLive()
+        /*public void ContinueLive()
         {
             
             lock (runningLifeBlock)
             {
                 Monitor.Pulse(runningLifeBlock);
             }
-        }
+        }*/
     }
 }

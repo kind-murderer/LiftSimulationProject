@@ -33,12 +33,8 @@ namespace View
 
             dataGridView1.DataBindingComplete += DataBindingCompleteHandler;
 
-            var container = AutofacBuilder.Build();
-            using (var scope = container.BeginLifetimeScope())
-            {
-                presenterFactory = scope.Resolve<PresenterMonitoring.Factory>();
-                presenter = presenterFactory(this);
-            }
+            presenterFactory = ContainerProvider.Container.Resolve<PresenterMonitoring.Factory>();
+            presenter = presenterFactory(this);
         }
 
         public void providePersonData(out string PersonInitialFloor, out string PersonDestinationFloor, out string PersonWeight)
@@ -73,8 +69,6 @@ namespace View
                 dataGridView1.Invoke((Action)(() => dataGridView1.DataSource = statuses.Select(x => new { Person_Status = x }).ToList()));
             }
             
-            
-
         }
         private void DataBindingCompleteHandler(object sender, DataGridViewBindingCompleteEventArgs e)
         {

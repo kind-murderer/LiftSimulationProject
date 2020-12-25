@@ -56,9 +56,9 @@ namespace LiftSimulationProject
             count++;
             return formMonitoring;
         }
-        public static FormInteriorObservation createInteriorObservationForm()
+        public static FormInteriorObservation createInteriorObservationForm(int numberOfFloors)
         {
-            FormInteriorObservation formInteriorObservation = new FormInteriorObservation();
+            FormInteriorObservation formInteriorObservation = new FormInteriorObservation(numberOfFloors);
             count++;
             return formInteriorObservation;
 

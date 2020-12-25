@@ -8,8 +8,7 @@ namespace View
 {
     public interface IViewInteriorObservation
     {
-        void ShowLiftCurrentFloorIndicator();
-        void ShowActiveLiftButtons();
-        void ShowWeightIndicator();
+        void UpdateInterior(int[] activeButtons, int transporterCurrentFloor, bool WasOverloaded);
+        void ClickOnMoveButton();
     }
 }
