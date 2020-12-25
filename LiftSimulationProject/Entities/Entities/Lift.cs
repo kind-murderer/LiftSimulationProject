@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LiftSimulationProject.Entities.IEntities;
 using AdditionalSystemConfiguration;
+using LiftSimulationProject.Services.Services;
 
 namespace LiftSimulationProject.Entities.Entities
 {
@@ -45,6 +46,7 @@ namespace LiftSimulationProject.Entities.Entities
                             weight += passanger.personData.PersonWeight;
                             passanger.IsCallingTransporter = false;
                             WasOverloaded = false;
+                            CounterService.TotalCarriedWeight += passanger.personData.PersonWeight;
                         }
                         else { WasOverloaded = true; }
                     }
@@ -61,18 +63,16 @@ namespace LiftSimulationProject.Entities.Entities
                     {
                         passanger.IsInTransporter = false;
                         weight -= passanger.personData.PersonWeight;
-                        //passanger.ContinueLive();
+                        CounterService.NumberOfDeliveredPassangers++;
                     }
                 }
             }
-            
-
         }
         public void Move(List<IPassanger> passangersInTransporter)
         {
             //on the new floor clean overload flag
             WasOverloaded = false;
-
+            //Console.WriteLine(weight);
             if (Direction.Equals("Up"))
             {
                 liftData.LiftCurrentFloor++;
@@ -111,50 +111,52 @@ namespace LiftSimulationProject.Entities.Entities
 
                 if (passangersInTransporter.Any())
                 {
-                    /*if (transporter.Direction.Equals("Up") && passangersInTransporter.Any(passanger => 
-                    passanger.personData.PersonDestinationFloor > transporter.liftData.LiftCurrentFloor))
-                    {
-                        transporter.Direction = "Up";
-                    }
-                    else ....*/
                     if (Direction.Equals("Up") && passangersInTransporter.All(passanger =>
                     passanger.personData.PersonDestinationFloor < liftData.LiftCurrentFloor))
                     {
                         Direction = "Down";
+                        CounterService.NumberOfTrips++;
                     }
-                    /*else if (transporter.Direction.Equals("Down") && passangersInTransporter.Any(passanger =>
-                    passanger.personData.PersonDestinationFloor < transporter.liftData.LiftCurrentFloor))
-                    {
-                        transporter.Direction = "Down";
-                    }*/
                     else if (Direction.Equals("Down") && passangersInTransporter.All(passanger =>
                     passanger.personData.PersonDestinationFloor > liftData.LiftCurrentFloor))
                     {
                         Direction = "Up";
+                        CounterService.NumberOfTrips++;
                     } 
                     else if (Direction.Equals("None") && passangersInTransporter.Any(passanger =>
                     passanger.personData.PersonDestinationFloor > liftData.LiftCurrentFloor))
                     {
                         Direction = "Up";
+                        CounterService.NumberOfTrips++;
                     } 
                     else if (Direction.Equals("None") && passangersInTransporter.Any(passanger =>
                     passanger.personData.PersonDestinationFloor < liftData.LiftCurrentFloor))
                     {
                         Direction = "Down";
+                        CounterService.NumberOfTrips++;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("*without passangers*");
                     //check outside
                     int maxCallFloor = passangers.FindAll(passanger => passanger.IsCallingTransporter).
                         Max(passanger => passanger.personData.PersonCurrentFloor);
                     if (maxCallFloor > liftData.LiftCurrentFloor)
                     {
+                        if (Direction != "Up")
+                        {
+                            CounterService.NumberOfTrips++;
+                            CounterService.NumberOfBlankTrips++;
+                        }
                         Direction = "Up";
                     }
                     else if (maxCallFloor < liftData.LiftCurrentFloor)
                     {
+                        if (Direction != "Down")
+                        {
+                            CounterService.NumberOfTrips++;
+                            CounterService.NumberOfBlankTrips++;
+                        }
                         Direction = "Down";
                     }
                     else
@@ -162,7 +164,6 @@ namespace LiftSimulationProject.Entities.Entities
                         Direction = "None";
                     }                
                 }
-               
             }
             return true;
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiftSimulationProject.Services.IServices;
+using LiftSimulationProject.Services.Services;
 using View;
 using AdditionalSystemConfiguration;
 
@@ -46,6 +47,11 @@ namespace LiftSimulationProject.Presenters
         {
             if (SystemManageServerAccessHelper.GetManageSystemService().TryStopSystem())
             {
+                CounterService.WriteSomeStatisticToConsole();
+                string statistic = string.Format("Общее количество поездок: {0}, \n в их числе холостых: {1}.\n" +
+                    "Суммарный перемещенный вес: {2}.\n Количество созданных пассажиров: {3}.", CounterService.NumberOfTrips,
+                    CounterService.NumberOfBlankTrips, CounterService.TotalCarriedWeight, CounterService.NumberOfCreatedPassangers);
+                view.ShowStatistic(statistic);
                 System.Windows.Forms.Application.Exit(); //close application
             }
             else

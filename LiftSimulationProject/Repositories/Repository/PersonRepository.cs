@@ -9,6 +9,7 @@ using LiftSimulationProject.Repositories.IRepository;
 using AdditionalSystemConfiguration;
 using Autofac;
 using LiftSimulationProject.Autofac;
+using LiftSimulationProject.Services.Services;
 
 namespace LiftSimulationProject.Repositories.Repository
 {
@@ -34,7 +35,8 @@ namespace LiftSimulationProject.Repositories.Repository
                     new TypedParameter(typeof(PersonConfigData), passangerData));
                 
                 passangers.Add(passanger);
-                Console.WriteLine("we added person");
+                //Console.WriteLine("we added person");
+                CounterService.NumberOfCreatedPassangers++;
             }
             //You're reached repository
             return true;

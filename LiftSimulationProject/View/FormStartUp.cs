@@ -37,12 +37,11 @@ namespace View
 
             var container = AutofacBuilder.Build();
             ContainerProvider.Container = container;
-            //using (var scope = container.BeginLifetimeScope())
-            //{
-                presenterFactory = container.Resolve<PresenterStartUp.Factory>();
-                presenter = presenterFactory(this);
-            //}
-            
+
+            presenterFactory = container.Resolve<PresenterStartUp.Factory>();
+            presenter = presenterFactory(this);
+
+
         }
 
         public void providePersonData(out string PersonInitialFloor, out string PersonDestinationFloor, out string PersonWeight)

@@ -18,5 +18,6 @@ namespace View
         event Action AddPassanger;
 
         void ShowCurrentPassangerStatuses(List<string> statuses);
+        void ShowStatistic(String text);
     }
 }

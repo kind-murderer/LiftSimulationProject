@@ -46,8 +46,6 @@ namespace View
             int columnCount = 3;
             int rowCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(numberOfFloors) / columnCount));
             GenerateTable(columnCount, rowCount, checkBoxes);
-
-            
         }
 
         public void UpdateInterior(int[] activeButtons, int transporterCurrentFloor, bool WasOverloaded)
@@ -80,8 +78,6 @@ namespace View
 
         public void ClickOnMoveButton()
         {
-            Console.WriteLine("here");
-
             new Thread(() => { 
                 checkBox_Move.Invoke((Action)(() => checkBox_Move.Checked = true));
                 Thread.Sleep(250);
@@ -121,16 +117,10 @@ namespace View
             }
         }
 
-        
-
-        private void closeForm_Handler(object sender, EventArgs e)
+        private void CloseFormHandler(object sender, EventArgs e)
         {
             MyApplicationContext.GetCurrentContext().OnFormClosed(sender, e);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

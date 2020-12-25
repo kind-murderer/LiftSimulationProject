@@ -74,19 +74,30 @@ namespace View
         {
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
         }
-        private void closeForm_Handler(object sender, EventArgs e)
+        private void CloseFormHandler(object sender, EventArgs e)
         {
             MyApplicationContext.GetCurrentContext().OnFormClosed(sender, e);
         }
 
-        private void button_Add_Click(object sender, EventArgs e)
+        private void clickOnAddButton(object sender, EventArgs e)
         {
             AddPassanger?.Invoke();
         }
 
-        private void button_Stop_Click(object sender, EventArgs e)
+        private void clickOnStopButton(object sender, EventArgs e)
         {
             StopSystem?.Invoke();
+        }
+
+        public void ShowStatistic(string text)
+        {
+            MessageBox.Show(
+                text,
+                "Статистика о работе системы:",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
         }
     }
 }

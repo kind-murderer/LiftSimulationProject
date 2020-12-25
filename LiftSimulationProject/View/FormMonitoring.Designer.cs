@@ -129,7 +129,7 @@ namespace View
             this.button_Add.TabIndex = 19;
             this.button_Add.Text = "Добавить";
             this.button_Add.UseVisualStyleBackColor = true;
-            this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
+            this.button_Add.Click += new System.EventHandler(this.clickOnAddButton);
             // 
             // button_Stop
             // 
@@ -139,7 +139,7 @@ namespace View
             this.button_Stop.TabIndex = 20;
             this.button_Stop.Text = "СТОП";
             this.button_Stop.UseVisualStyleBackColor = true;
-            this.button_Stop.Click += new System.EventHandler(this.button_Stop_Click);
+            this.button_Stop.Click += new System.EventHandler(this.clickOnStopButton);
             // 
             // panel_AddPerson2
             // 
@@ -176,7 +176,7 @@ namespace View
             this.Controls.Add(this.dataGridView1);
             this.Name = "FormMonitoring";
             this.Text = "Мониторинг";
-            this.Closed += new System.EventHandler(this.closeForm_Handler);
+            this.Closed += new System.EventHandler(this.CloseFormHandler);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel_AddPerson2.ResumeLayout(false);
             this.panel_AddPerson2.PerformLayout();

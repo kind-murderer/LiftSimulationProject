@@ -37,7 +37,6 @@ namespace LiftSimulationProject
         public void OnFormClosed(object sender, EventArgs e)
         {
             count--;
-            Console.WriteLine("WE CLOSED WINDOW. Count: " + count);
             if (count == 0)
             {
                 ExitThread();
@@ -61,8 +60,6 @@ namespace LiftSimulationProject
             FormInteriorObservation formInteriorObservation = new FormInteriorObservation(numberOfFloors);
             count++;
             return formInteriorObservation;
-
-
         }
     }
 

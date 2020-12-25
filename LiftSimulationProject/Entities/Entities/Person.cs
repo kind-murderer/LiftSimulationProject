@@ -66,7 +66,7 @@ namespace LiftSimulationProject.Entities.Entities
         }
         private void CallTransporter()
         {
-            Console.WriteLine("Try to call");
+            
             lock (repository.passangers)
             {
                 IsCallingTransporter = true;
@@ -89,13 +89,5 @@ namespace LiftSimulationProject.Entities.Entities
 
         }
 
-        /*public void ContinueLive()
-        {
-            
-            lock (runningLifeBlock)
-            {
-                Monitor.Pulse(runningLifeBlock);
-            }
-        }*/
     }
 }

@@ -30,7 +30,7 @@ namespace LiftSimulationProject.Services.Services
         public ManageSystemService(IPassangerRepository repository_)
         {
             repository = repository_;
-            repository.passangerCalls += passangerCallsHandler;
+            repository.passangerCalls += PassangerCallsHandler;
         }
 
         void RunSystem()
@@ -70,7 +70,6 @@ namespace LiftSimulationProject.Services.Services
                 lock (transporter)
                 {
                     transporter.Move(passangersInTransporter);
-                    Console.WriteLine("Moved");
                 }
 
                 Thread.Sleep(2000);
@@ -102,7 +101,6 @@ namespace LiftSimulationProject.Services.Services
                     passangersInTransporter = repository.passangers.FindAll(
                         passanger => passanger.IsInTransporter);
                 }
-
             }
 
         }
@@ -112,6 +110,7 @@ namespace LiftSimulationProject.Services.Services
             if (TryAddPerson(passangerData))
             {
                 CreateTransporter(transporterData);
+                CounterService.StartCountingTime();
                 Thread newThread = new Thread(new ThreadStart(RunSystem));
                 newThread.IsBackground = true;
                 newThread.Start();
@@ -123,7 +122,15 @@ namespace LiftSimulationProject.Services.Services
         {
             lock (repository.passangers)
             {
-                return !repository.passangers.FindAll(passanger => passanger.IsInTransporter).Any();
+                if (!repository.passangers.FindAll(passanger => passanger.IsInTransporter).Any())
+                {
+                    CounterService.StopCountingTime();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -137,7 +144,7 @@ namespace LiftSimulationProject.Services.Services
                 new TypedParameter(typeof(LiftConfigData), liftData));
         }
                 
-        public void passangerCallsHandler()
+        public void PassangerCallsHandler()
         {
             lock (runningSystemLock)
             {
