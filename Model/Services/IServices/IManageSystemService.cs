@@ -10,7 +10,7 @@ namespace Services.IServices
 
         event Action transporterAwake;
         bool TryAddPerson(PersonConfigData passangerData);
-        bool TryStartSystem(LiftConfigData transporterData, PersonConfigData passangerData);
+        bool TryStartSystem(LiftConfigData transporterData);
         bool TryStopSystem();
         
         //this service will have synchronized field "transporter"

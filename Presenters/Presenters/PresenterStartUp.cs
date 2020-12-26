@@ -22,20 +22,38 @@ namespace Presenters
             {
                 LiftConfigData transporterData = convertTransporterData();
                 PersonConfigData passangerData = convertPassangerData();
-                if (manageSystemService.TryStartSystem(transporterData, passangerData))
-                {
-                    view.showIncorrectInputMessage("");
 
-                    view.CreateShowMonitoringForm();
-                    view.CreateShowInteriorObservationForm();
-
-                    view.Close();
-                }
-                else
+                if (passangerData != null)
                 {
-                    view.showIncorrectInputMessage("");
-                    view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
+                    if (manageSystemService.TryStartSystem(transporterData) && manageSystemService.TryAddPerson(passangerData))
+                    {
+                        view.showIncorrectInputMessage("");
+                        view.CreateShowMonitoringForm();
+                        view.CreateShowInteriorObservationForm();
+                        view.Close();
+                    }
+                    else
+                    {
+                        view.showIncorrectInputMessage("");
+                        view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
+                    } 
                 }
+                else if (passangerData == null)
+                {
+                    if (manageSystemService.TryStartSystem(transporterData))
+                    {
+                        view.showIncorrectInputMessage("");
+                        view.CreateShowMonitoringForm();
+                        view.CreateShowInteriorObservationForm();
+                        view.Close();
+                    }
+                    else
+                    {
+                        view.showIncorrectInputMessage("");
+                        view.showCriticalErrorMessage("Произошла критическая ошибка. Попробуйте еще раз");
+                    }
+                }
+                
 
             }
         }
@@ -72,12 +90,17 @@ namespace Presenters
             int passangerWeight = 0;
 
             view.providePersonData(out string PassangerInitialFloor, out string PassangerDestinationFloor, out string PassangerWeight);
-
-            if (string.IsNullOrEmpty(PassangerDestinationFloor) || !int.TryParse(PassangerDestinationFloor, out passangerDestinationFloor)
-                || string.IsNullOrEmpty(PassangerInitialFloor) || !int.TryParse(PassangerInitialFloor, out passangerInitialFloor)
-                || string.IsNullOrEmpty(PassangerWeight) || !int.TryParse(PassangerWeight, out passangerWeight))
+            if (string.IsNullOrEmpty(PassangerDestinationFloor) && string.IsNullOrEmpty(PassangerInitialFloor) && string.IsNullOrEmpty(PassangerWeight))
+            {
+                //we will start without passangers
+                return true;
+            }
+            else if (!int.TryParse(PassangerDestinationFloor, out passangerDestinationFloor)
+                || !int.TryParse(PassangerInitialFloor, out passangerInitialFloor)
+                || !int.TryParse(PassangerWeight, out passangerWeight))
             {
                 view.showIncorrectInputMessage("Некорректно введены данные");
+                return false;
             }
             else if (!(
                 (passangerInitialFloor > 0 && passangerInitialFloor <= numberOfFloors && passangerInitialFloor != passangerDestinationFloor)
@@ -85,13 +108,13 @@ namespace Presenters
           && (passangerWeight > 0 && passangerWeight <= LiftConfigData.maxWeightToCarry)))
             {
                 view.showIncorrectInputMessage("Введенные данные не лежат в необходимом диапазоне");
+                return false;
             }
             else 
             {
                 view.showIncorrectInputMessage("");
                 return true;
             }
-            return false;
         }
 
         private LiftConfigData convertTransporterData()
@@ -105,6 +128,12 @@ namespace Presenters
         private PersonConfigData convertPassangerData()
         {
             view.providePersonData(out string PassangerInitialFloor, out string PassangerDestinationFloor, out string PassangerWeight);
+            if (string.IsNullOrEmpty(PassangerInitialFloor)
+                && string.IsNullOrEmpty(PassangerDestinationFloor)
+                && string.IsNullOrEmpty(PassangerWeight))
+            {
+                return null;
+            }
             int.TryParse(PassangerInitialFloor, out int passangerInitialFloor);
             int.TryParse(PassangerDestinationFloor, out int passangerDestinationFloor);
             int.TryParse(PassangerWeight, out int passangerWeight);

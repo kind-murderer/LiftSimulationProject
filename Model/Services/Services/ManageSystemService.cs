@@ -102,19 +102,14 @@ namespace Services.Services
             }
 
         }
-        public bool TryStartSystem(LiftConfigData transporterData, PersonConfigData passangerData)
+        public bool TryStartSystem(LiftConfigData transporterData)
         {
-
-            if (TryAddPerson(passangerData))
-            {
-                CreateTransporter(transporterData);
-                CounterService.StartCountingTime();
-                Thread newThread = new Thread(new ThreadStart(RunSystem));
-                newThread.IsBackground = true;
-                newThread.Start();
-                return true;
-            }
-            return false;
+            CreateTransporter(transporterData);
+            CounterService.StartCountingTime();
+            Thread newThread = new Thread(new ThreadStart(RunSystem));
+            newThread.IsBackground = true;
+            newThread.Start();
+            return true;
         }
         public bool TryStopSystem()
         {
