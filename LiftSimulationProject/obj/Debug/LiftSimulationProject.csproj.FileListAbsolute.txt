@@ -1,0 +1,12 @@
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\LiftSimulationProject.csprojAssemblyReference.cache
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\LiftSimulationProject.Properties.Resources.resources
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\View.Form1.resources
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\View.Form2.resources
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\View.Form3.resources
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\LiftSimulationProject.csproj.GenerateResource.cache
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\LiftSimulationProject.csproj.CoreCompileInputs.cache
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\bin\Debug\LiftSimulationProject.exe.config
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\bin\Debug\LiftSimulationProject.exe
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\bin\Debug\LiftSimulationProject.pdb
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\LiftSimulationProject.exe
+E:\LiftProject\LiftSimulationProject\LiftSimulationProject\LiftSimulationProject\obj\Debug\LiftSimulationProject.pdb
