@@ -1,11 +1,11 @@
 ﻿using Autofac;
-using LiftSimulationProject.Presenters;
-using LiftSimulationProject.Services.Services;
-using LiftSimulationProject.Services.IServices;
-using LiftSimulationProject.Repositories.Repository;
-using LiftSimulationProject.Repositories.IRepository;
-using LiftSimulationProject.Entities.Entities;
-using LiftSimulationProject.Entities.IEntities;
+using Presenters;
+using Services.Services;
+using Services.IServices;
+using Repositories.Repository;
+using Repositories.IRepository;
+using Entities.Entities;
+using Entities.IEntities;
 
 
 

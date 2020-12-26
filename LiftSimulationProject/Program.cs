@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using View;
 
@@ -55,9 +51,9 @@ namespace LiftSimulationProject
             count++;
             return formMonitoring;
         }
-        public static FormInteriorObservation createInteriorObservationForm(int numberOfFloors)
+        public static FormInteriorObservation createInteriorObservationForm()
         {
-            FormInteriorObservation formInteriorObservation = new FormInteriorObservation(numberOfFloors);
+            FormInteriorObservation formInteriorObservation = new FormInteriorObservation(AdditionalSystemConfiguration.LiftConfigData.NumberOfFloors);
             count++;
             return formInteriorObservation;
         }
